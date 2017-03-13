@@ -45,8 +45,6 @@ public class EditorActivity extends AppCompatActivity implements
 
     private EditText mSupplierEmailEditText;
 
-    private EditText mSupplierPhoneEditText;
-
     private ImageView mItemImageView;
 
     int quantity;
@@ -98,7 +96,6 @@ public class EditorActivity extends AppCompatActivity implements
         mQuantityEditText = (EditText) findViewById(R.id.quantity_edit_text);
         mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
         mSupplierEmailEditText = (EditText) findViewById(R.id.supplier_email);
-        mSupplierPhoneEditText = (EditText) findViewById(R.id.phone_number);
         mItemImageView = (ImageView) findViewById(R.id.item_image);
 
     }
@@ -110,18 +107,16 @@ public class EditorActivity extends AppCompatActivity implements
         String quantityString = mQuantityEditText.getText().toString().trim();
         String supplierNameString = mSupplierNameEditText.getText().toString().trim();
         String supplierEmailString = mSupplierEmailEditText.getText().toString().trim();
-        String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
 
         if (mCurrentItemUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
                 TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierNameString) &&
-                TextUtils.isEmpty(supplierEmailString) && TextUtils.isEmpty(supplierPhoneString)) {
+                TextUtils.isEmpty(supplierEmailString)) {
             return;
         }
 
         int price = Integer.parseInt(priceString);
         int itemQuantity = Integer.parseInt(quantityString);
-        int phone = Integer.parseInt(supplierPhoneString);
 
         ContentValues values = new ContentValues();
         values.put(ItemEntry.COLUMN_ITEM_NAME, nameString);
@@ -129,7 +124,6 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(ItemEntry.COLUMN_ITEM_QUANTITY, itemQuantity);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_NAME, supplierNameString);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL, supplierEmailString);
-        values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE, phone);
 
         // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
         if (mCurrentItemUri == null) {
@@ -289,9 +283,7 @@ public class EditorActivity extends AppCompatActivity implements
                 ItemEntry.COLUMN_ITEM_PRICE,
                 ItemEntry.COLUMN_ITEM_QUANTITY,
                 ItemEntry.COLUMN_ITEM_SUPPLIER_NAME,
-                ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL,
-                ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE,
-                ItemEntry.COLUMN_ITEM_IMAGE };
+                ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL };
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -318,8 +310,7 @@ public class EditorActivity extends AppCompatActivity implements
             int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
             int supplierNameColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_NAME);
             int supplierEmailColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL);
-            int supplierPhoneColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE);
-            int itemImageColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_IMAGE);
+            //int itemImageColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_IMAGE);
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
@@ -327,7 +318,6 @@ public class EditorActivity extends AppCompatActivity implements
             int quantity = cursor.getInt(quantityColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
             String supplierEmail = cursor.getString(supplierEmailColumnIndex);
-            int supplierPhone = cursor.getInt(supplierPhoneColumnIndex);
 
 
             // Update the views on the screen with the values from the database
@@ -336,7 +326,6 @@ public class EditorActivity extends AppCompatActivity implements
             mQuantityEditText.setText(Integer.toString(quantity));
             mSupplierNameEditText.setText(supplierName);
             mSupplierEmailEditText.setText(supplierEmail);
-            mSupplierPhoneEditText.setText(Integer.toString(supplierPhone));
             }
         }
 
@@ -362,7 +351,6 @@ public class EditorActivity extends AppCompatActivity implements
         mQuantityEditText.setText("");
         mSupplierNameEditText.setText("");
         mSupplierEmailEditText.setText("");
-        mSupplierPhoneEditText.setText("");
     }
 
     /**

@@ -33,9 +33,7 @@ public class ItemDbHelper extends SQLiteOpenHelper {
                 + ItemEntry.COLUMN_ITEM_PRICE + " INTEGER NOT NULL, "
                 + ItemEntry.COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL DEFAULT 0, "
                 + ItemEntry.COLUMN_ITEM_SUPPLIER_NAME + " TEXT NOT NULL, "
-                + ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL + " STRING NOT NULL, "
-                + ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE + " INTEGER NOT NULL "
-                + ItemEntry.COLUMN_ITEM_IMAGE + " NONE);";
+                + ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL + " STRING NOT NULL);";
 
         db.execSQL(SQL_CREATE_ITEMS_TABLE);
     }

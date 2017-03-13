@@ -138,25 +138,6 @@
                     android:src="@drawable/ic_email_white_48dp" />
 
             </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="4dp">
-
-                <EditText
-                    android:id="@+id/phone_number"
-                    style="@style/EditorSubInfoStyle"
-                    android:hint="Phone Number"
-                    android:inputType="phone" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_call_white_48dp" />
-            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

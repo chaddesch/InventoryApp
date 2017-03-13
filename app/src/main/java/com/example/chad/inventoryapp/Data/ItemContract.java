@@ -42,9 +42,7 @@ public final class ItemContract {
 
         public final static String COLUMN_ITEM_SUPPLIER_EMAIL = "supplieremail";
 
-        public final static String COLUMN_ITEM_SUPPLIER_PHONE = "supplierphone";
-
-        public final static String COLUMN_ITEM_IMAGE = "itemimage";
+        //public final static String COLUMN_ITEM_IMAGE = "itemimage";
 
 
     }

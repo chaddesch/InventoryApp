@@ -125,12 +125,7 @@ public class ItemProvider extends ContentProvider {
             throw new IllegalArgumentException("Item requires a supplier email");
         }
 
-        Integer supplierPhone = values.getAsInteger(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE);
-        if (supplierPhone == null) {
-            throw new IllegalArgumentException("Item requires a supplier phone number");
-        }
-
-        byte[] itemImage = values.getAsByteArray(ItemEntry.COLUMN_ITEM_IMAGE);
+        //byte[] itemImage = values.getAsByteArray(ItemEntry.COLUMN_ITEM_IMAGE);
 
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
@@ -242,16 +237,9 @@ public class ItemProvider extends ContentProvider {
             }
         }
 
-        if (values.containsKey(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE)) {
-            Integer supplierPhone = values.getAsInteger(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE);
-            if (supplierPhone == null) {
-                throw new IllegalArgumentException("Item requires a supplier phone nummber");
-            }
-        }
-
-        if (values.containsKey(ItemEntry.COLUMN_ITEM_IMAGE)) {
+        /**if (values.containsKey(ItemEntry.COLUMN_ITEM_IMAGE)) {
             byte[] itemImage = values.getAsByteArray(ItemEntry.COLUMN_ITEM_IMAGE);
-        }
+        }*/
 
         // If there are no values to update, then don't try to update the database
         if (values.size() == 0) {
