@@ -75,11 +75,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="@string/hint_quantity_value"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:text="0" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/add"

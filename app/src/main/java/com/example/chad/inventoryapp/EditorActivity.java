@@ -426,9 +426,9 @@ public class EditorActivity extends AppCompatActivity implements
             int quantity = cursor.getInt(quantityColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
             String supplierEmail = cursor.getString(supplierEmailColumnIndex);
-            byte[] image = null;
+            byte[] itemImage = null;
             if (cursor.getBlob(itemImageColumnIndex) != null) {
-                image = cursor.getBlob(itemImageColumnIndex);
+                itemImage = cursor.getBlob(itemImageColumnIndex);
             }
 
 
@@ -440,8 +440,8 @@ public class EditorActivity extends AppCompatActivity implements
             mSupplierEmailEditText.setText(supplierEmail);
 
             // if item image is not null run it through the bitmap factory for formatting
-            if (image != null) {
-                Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
+            if (itemImage != null) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(itemImage, 0, itemImage.length);
                 mItemImageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, mItemImageView.getWidth(),
                         mItemImageView.getHeight(), false));
             }
@@ -476,44 +476,44 @@ public class EditorActivity extends AppCompatActivity implements
             if (resultData != null) {
                 Uri mUri = resultData.getData();
                 Log.i(LOG_TAG, "Uri: " + mUri.toString());
-                mItemImageView.setImageBitmap(getBitmapFromUri(mUri));
+                mItemImageView.setImageBitmap(createBitmap(mUri));
                 mItemImageView.setImageAlpha(255);
             }
         }
     }
 
-    public Bitmap getBitmapFromUri(Uri uri) {
+    public Bitmap createBitmap(Uri uri) {
 
         if (uri == null || uri.toString().isEmpty())
             return null;
 
         // Get the dimensions of the View
-        int targetW = mItemImageView.getWidth();
-        int targetH = mItemImageView.getHeight();
+        int targetWidth = mItemImageView.getWidth();
+        int targetHeight = mItemImageView.getHeight();
 
         InputStream input = null;
         try {
             input = this.getContentResolver().openInputStream(uri);
 
             // Get the dimensions of the bitmap
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(input, null, bmOptions);
+            BitmapFactory.Options bmpOptions = new BitmapFactory.Options();
+            bmpOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(input, null, bmpOptions);
             input.close();
 
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
+            int photoWidth = bmpOptions.outWidth;
+            int photoHeight = bmpOptions.outHeight;
 
-            // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+            // Determine how to scale down the image
+            int scaleFactor = Math.min(photoWidth / targetWidth, photoHeight / targetHeight);
 
-            // Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
+            // Decode the image file into a Bitmap small/big enough to fill the item ImageView
+            bmpOptions.inJustDecodeBounds = false;
+            bmpOptions.inSampleSize = scaleFactor;
+            bmpOptions.inPurgeable = true;
 
             input = this.getContentResolver().openInputStream(uri);
-            Bitmap bitmap = BitmapFactory.decodeStream(input, null, bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeStream(input, null, bmpOptions);
             input.close();
             return bitmap;
 
