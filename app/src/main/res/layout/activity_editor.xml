@@ -59,7 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="right"
+            android:gravity="end"
             android:orientation="horizontal">
 
             <android.support.design.widget.FloatingActionButton
@@ -102,7 +102,8 @@
         <!-- Label -->
         <TextView
             style="@style/CategoryStyle"
-            android:text="@string/supplier_category" />
+            android:text="@string/supplier_category"
+            />
 
         <!-- Input fields -->
         <LinearLayout
@@ -110,27 +111,31 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:orientation="vertical"
-            android:paddingLeft="4dp">
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp">
 
-            <!-- Weight field -->
+            <!-- Supplier Name Field -->
             <EditText
                 android:id="@+id/edit_supplier_name"
                 style="@style/EditorFieldStyle"
-                android:hint="Supplier Name"
-                android:inputType="text" />
+                android:hint="@string/supplier_name"
+                android:inputType="textCapWords"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp">
 
+                <!-- Supplier Email Field -->
                 <EditText
                     android:id="@+id/supplier_email"
                     style="@style/EditorSubInfoStyle"
-                    android:hint="Email Address"
+                    android:hint="@string/supplier_email_address"
                     android:inputType="textEmailAddress" />
 
                 <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/email_supplier"
+                    android:onClick="emailSupplier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -151,9 +156,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:background="@color/colorAccent"
             android:onClick="selectImage"
-            android:src = "@drawable/ic_add_a_photo_white_48dp"
-            android:background="@color/colorAccent"/>
+            android:src="@drawable/ic_add_a_photo_white_48dp" />
 
     </LinearLayout>
 </LinearLayout>

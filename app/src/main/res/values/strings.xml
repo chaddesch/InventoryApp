@@ -31,5 +31,23 @@
     <string name="empty_view_title_text">You have no inventory!</string>
     <string name="empty_view_subtitle_text">Add some items.</string>
     <string name="supplier_category">Supplier</string>
+    <string name="supplier_name">Supplier Name</string>
+    <string name="supplier_email_address">Email Address</string>
+    <string name="deletion_error">Error with deleting item</string>
+    <string name="item_deleted">Item deleted</string>
+    <string name="delete_question">Delete this item?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="discard">Discard</string>
+    <string name="discard_changes_question">Discard your changes and quit editing?</string>
+    <string name="image_load_failed">Failed to load image.</string>
+    <string name="no_negative_quantity">Can\'t have a negative quantity</string>
+    <string name="update_error">Error with updating item</string>
+    <string name="item_updated">Item updated</string>
+    <string name="item_saved">Item saved</string>
+    <string name="save_error">Error with saving item</string>
+    <string name="edit_item">Edit Item</string>
+    <string name="add_item">Add an Item</string>
 
 </resources>

@@ -20,11 +20,16 @@ import android.widget.ListView;
 
 import com.example.chad.inventoryapp.Data.ItemContract.ItemEntry;
 
+/**
+ * Displays list of items that were entered and stored in the app.
+ */
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    /** Identifier for the item data loader */
     private static final int ITEM_LOADER = 0;
 
+    /** Adapter for the ListView */
     ItemCursorAdapter mCursorAdapter;
 
     @Override
@@ -42,11 +47,15 @@ public class CatalogActivity extends AppCompatActivity implements
             }
         });
 
+        // Find the ListView which will be populated with the item data
         ListView itemListView = (ListView) findViewById(R.id.list);
 
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
         itemListView.setEmptyView(emptyView);
 
+        // Setup an Adapter to create a list item for each row of item data in the Cursor.
+        // There is no item data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new ItemCursorAdapter(this, null);
         itemListView.setAdapter(mCursorAdapter);
 
@@ -57,12 +66,17 @@ public class CatalogActivity extends AppCompatActivity implements
                 // Create new intent to go to {@link EditorActivity}
                 Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
 
+                // Form the content URI that represents the specific item that was clicked on,
+                // by appending the "id" (passed as input to this method) onto the
+                // {@link ItemEntry#CONTENT_URI}.
+                // For example, the URI would be "content://com.example.chad.inventoryapp/items/2"
+                // if the item with ID 2 was clicked on.
                 Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, id);
 
                 // Set the URI on the data field of the intent
                 intent.setData(currentItemUri);
 
-                // Launch the {@link EditorActivity} to display the data for the current pet.
+                // Launch the {@link EditorActivity} to display the data for the current item.
                 startActivity(intent);
             }
         });
@@ -84,15 +98,15 @@ public class CatalogActivity extends AppCompatActivity implements
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_NAME, "Google");
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL, "google@gmail.com");
 
-        // Insert a new row for Toto into the provider using the ContentResolver.
-        // Use the {@link PetEntry#CONTENT_URI} to indicate that we want to insert
-        // into the pets database table.
-        // Receive the new content URI that will allow us to access Toto's data in the future.
+        // Insert a new row for Pixel into the provider using the ContentResolver.
+        // Use the {@link ItemEntry#CONTENT_URI} to indicate that we want to insert
+        // into the items database table.
+        // Receive the new content URI that will allow us to access Pixel's data in the future.
         Uri newUri = getContentResolver().insert(ItemEntry.CONTENT_URI, values);
     }
 
     /**
-     * Helper method to delete all pets in the database.
+     * Helper method to delete all items in the database.
      */
     private void deleteAllItems() {
         int rowsDeleted = getContentResolver().delete(ItemEntry.CONTENT_URI, null, null);
@@ -143,7 +157,7 @@ public class CatalogActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        // Update {@link ItemCursorAdapter} with this new cursor containing updated item data
         mCursorAdapter.swapCursor(data);
     }
 
