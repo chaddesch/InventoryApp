@@ -26,10 +26,14 @@ import com.example.chad.inventoryapp.Data.ItemContract.ItemEntry;
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the item data loader */
+    /**
+     * Identifier for the item data loader
+     */
     private static final int ITEM_LOADER = 0;
 
-    /** Adapter for the ListView */
+    /**
+     * Adapter for the ListView
+     */
     ItemCursorAdapter mCursorAdapter;
 
     @Override

@@ -41,28 +41,44 @@ import java.io.InputStream;
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the item data loader */
+    /**
+     * Identifier for the item data loader
+     */
     private static final int EXISTING_ITEM_LOADER = 0;
 
-    /** Content URI for the existing item (null if it's a new item) */
+    /**
+     * Content URI for the existing item (null if it's a new item)
+     */
     private Uri mCurrentItemUri;
 
-    /** EditText field to enter the item's name */
+    /**
+     * EditText field to enter the item's name
+     */
     private EditText mNameEditText;
 
-    /** EditText field to enter the item's price */
+    /**
+     * EditText field to enter the item's price
+     */
     private EditText mPriceEditText;
 
-    /** EditText field to enter the item's quantity */
+    /**
+     * EditText field to enter the item's quantity
+     */
     private EditText mQuantityEditText;
 
-    /** EditText field to enter the item's supplier name */
+    /**
+     * EditText field to enter the item's supplier name
+     */
     private EditText mSupplierNameEditText;
 
-    /** EditText field to enter the item's supplier email address */
+    /**
+     * EditText field to enter the item's supplier email address
+     */
     private EditText mSupplierEmailEditText;
 
-    /** ImageView field to enter the item's image */
+    /**
+     * ImageView field to enter the item's image
+     */
     private ImageView mItemImageView;
 
     private static final int SELECT_IMAGE = 0;
@@ -73,7 +89,9 @@ public class EditorActivity extends AppCompatActivity implements
     private static final String LOG_TAG = EditorActivity.class.getSimpleName();
 
 
-    /** Boolean flag that keeps track of whether the item has been edited (true) or not (false) */
+    /**
+     * Boolean flag that keeps track of whether the item has been edited (true) or not (false)
+     */
     private boolean mItemHasChanged = false;
 
     /**
@@ -90,7 +108,7 @@ public class EditorActivity extends AppCompatActivity implements
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
@@ -336,7 +354,7 @@ public class EditorActivity extends AppCompatActivity implements
         // Grab the existing quantity and remove one unless the quantity is 0, in which case return
         // and show toast message
         int quantity = Integer.parseInt(mQuantityEditText.getText().toString());
-        if (quantity == 0){
+        if (quantity == 0) {
             Toast.makeText(this, R.string.no_negative_quantity, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -346,7 +364,6 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
 
-
     public void emailSupplier(View v) {
         // Grab the email address in EditText and convert to string and trim
         String supplierEmailString = mSupplierEmailEditText.getText().toString().trim();
@@ -354,7 +371,7 @@ public class EditorActivity extends AppCompatActivity implements
         // Send an intent to email handler and prefill To: line with supplier's email address
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.putExtra(Intent.EXTRA_EMAIL,new String[] {supplierEmailString});
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{supplierEmailString});
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send Mail Using :"));
@@ -374,7 +391,7 @@ public class EditorActivity extends AppCompatActivity implements
                 ItemEntry.COLUMN_ITEM_QUANTITY,
                 ItemEntry.COLUMN_ITEM_SUPPLIER_NAME,
                 ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL,
-                ItemEntry.COLUMN_ITEM_IMAGE };
+                ItemEntry.COLUMN_ITEM_IMAGE};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -409,7 +426,7 @@ public class EditorActivity extends AppCompatActivity implements
             int quantity = cursor.getInt(quantityColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
             String supplierEmail = cursor.getString(supplierEmailColumnIndex);
-            byte [] image = null;
+            byte[] image = null;
             if (cursor.getBlob(itemImageColumnIndex) != null) {
                 image = cursor.getBlob(itemImageColumnIndex);
             }
@@ -428,12 +445,14 @@ public class EditorActivity extends AppCompatActivity implements
                 mItemImageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, mItemImageView.getWidth(),
                         mItemImageView.getHeight(), false));
             }
-            }
-
-
         }
 
-        /**Intent allowing the user to select an image for the item*/
+
+    }
+
+    /**
+     * Intent allowing the user to select an image for the item
+     */
     public void selectImage(View view) {
         Intent intent;
 
@@ -450,16 +469,10 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        // The ACTION_OPEN_DOCUMENT intent was sent with the request code READ_REQUEST_CODE.
-        // If the request code seen here doesn't match, it's the response to some other intent,
-        // and the below code should not run.
-
+        // Make sure we're working with the select image intent and not another intent
         if (requestCode == SELECT_IMAGE && resultCode == Activity.RESULT_OK) {
-            // The document selected by the user won't be returned in the intent.
-            // Instead, a URI to that document will be contained in the return intent
-            // provided to this method as a parameter.  Pull that uri using "resultData.getData()"
 
-
+            // Get a Uri for the image
             if (resultData != null) {
                 Uri mUri = resultData.getData();
                 Log.i(LOG_TAG, "Uri: " + mUri.toString());

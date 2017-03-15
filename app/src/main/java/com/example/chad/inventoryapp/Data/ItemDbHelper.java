@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.chad.inventoryapp.Data.ItemContract.ItemEntry;
 
 
-
 /**
  * Database helper for InventoryApp app. Manages database creation and version management.
  */
@@ -16,7 +15,9 @@ public class ItemDbHelper extends SQLiteOpenHelper {
 
     public static final String LOG_TAG = ItemDbHelper.class.getSimpleName();
 
-    /** Name of the database file */
+    /**
+     * Name of the database file
+     */
     private static final String DATABASE_NAME = "inventory.db";
 
     /**

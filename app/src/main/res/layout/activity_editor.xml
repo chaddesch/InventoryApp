@@ -102,8 +102,7 @@
         <!-- Label -->
         <TextView
             style="@style/CategoryStyle"
-            android:text="@string/supplier_category"
-            />
+            android:text="@string/supplier_category" />
 
         <!-- Input fields -->
         <LinearLayout
@@ -119,7 +118,7 @@
                 android:id="@+id/edit_supplier_name"
                 style="@style/EditorFieldStyle"
                 android:hint="@string/supplier_name"
-                android:inputType="textCapWords"/>
+                android:inputType="textCapWords" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -135,11 +134,11 @@
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/email_supplier"
-                    android:onClick="emailSupplier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:onClick="emailSupplier"
                     android:src="@drawable/ic_email_white_48dp" />
 
             </RelativeLayout>
