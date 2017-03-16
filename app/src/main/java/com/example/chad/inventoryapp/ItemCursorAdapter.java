@@ -1,12 +1,15 @@
 package com.example.chad.inventoryapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chad.inventoryapp.Data.ItemContract.ItemEntry;
 
@@ -54,11 +57,12 @@ public class ItemCursorAdapter extends CursorAdapter {
      *                correct row.
      */
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
-        TextView quantityTextView = (TextView) view.findViewById(R.id.catalog_quantity);
+        final TextView quantityTextView = (TextView) view.findViewById(R.id.catalog_quantity);
+        Button sellButton = (Button) view.findViewById(R.id.sell_one);
 
         // Find the columns of item attributes that we're interested in
         int nameColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_NAME);
@@ -75,5 +79,28 @@ public class ItemCursorAdapter extends CursorAdapter {
         summaryTextView.setText(itemPrice);
         quantityTextView.setText(itemQuantity);
 
+        // Setup OnClickListener for Sell Button
+        sellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Parse quantity back to an Integer so we can do math on it.
+                int quantity = Integer.parseInt(quantityTextView.getText().toString());
+                // If the quantity is 0 display a toast stating there's no inventory and return
+                // Otherwise, decrement the quantity by 1
+                if (quantity == 0) {
+                    Toast.makeText(context.getApplicationContext(), R.string.no_inventory,
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                quantity--;
+
+                // Set the new quantity in the quantityTextView of the affected list item
+                quantityTextView.setText(Integer.toString(quantity));
+
+                // Update the quantity of the item of the affected item in the database
+                ContentValues values = new ContentValues();
+                values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity);
+            }
+        });
     }
 }

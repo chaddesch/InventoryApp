@@ -95,4 +95,7 @@
     <!-- Label for Editor when adding a new item -->
     <string name="add_item">Add an Item</string>
 
+    <!-- Toast text when there is no inventory available and the Sell button is pressed -->
+    <string name="no_inventory">No more inventory available!</string>
+
 </resources>
