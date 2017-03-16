@@ -94,12 +94,12 @@ public class ItemCursorAdapter extends CursorAdapter {
                 }
                 quantity--;
 
-                // Set the new quantity in the quantityTextView of the affected list item
-                quantityTextView.setText(Integer.toString(quantity));
-
                 // Update the quantity of the item of the affected item in the database
                 ContentValues values = new ContentValues();
                 values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity);
+
+                // Set the new quantity in the quantityTextView of the affected list item
+                quantityTextView.setText(Integer.toString(quantity));
             }
         });
     }
