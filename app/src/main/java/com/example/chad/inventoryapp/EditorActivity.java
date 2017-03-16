@@ -441,9 +441,15 @@ public class EditorActivity extends AppCompatActivity implements
 
             // if item image is not null run it through the bitmap factory for formatting
             if (itemImage != null) {
-                Bitmap bmp = BitmapFactory.decodeByteArray(itemImage, 0, itemImage.length);
-                mItemImageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, mItemImageView.getWidth(),
-                        mItemImageView.getHeight(), false));
+                final Bitmap bmp = BitmapFactory.decodeByteArray(itemImage, 0, itemImage.length);
+                mItemImageView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mItemImageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, mItemImageView.getWidth(),
+                                mItemImageView.getHeight(), false));
+                    }
+                });
+
             }
         }
 
