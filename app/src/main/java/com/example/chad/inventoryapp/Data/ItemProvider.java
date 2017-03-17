@@ -18,13 +18,19 @@ import com.example.chad.inventoryapp.Data.ItemContract.ItemEntry;
 
 public class ItemProvider extends ContentProvider {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = ItemProvider.class.getSimpleName();
 
-    /** URI matcher code for the content URI for the items table */
+    /**
+     * URI matcher code for the content URI for the items table
+     */
     private static final int ITEMS = 100;
 
-    /** URI matcher code for the content URI for a single item in the items table */
+    /**
+     * URI matcher code for the content URI for a single item in the items table
+     */
     private static final int ITEM_ID = 101;
 
     /**
@@ -56,7 +62,9 @@ public class ItemProvider extends ContentProvider {
         sUriMatcher.addURI(ItemContract.CONTENT_AUTHORITY, ItemContract.PATH_ITEMS + "/#", ITEM_ID);
     }
 
-    /** Database helper object */
+    /**
+     * Database helper object
+     */
     private ItemDbHelper mDbHelper;
 
     @Override
@@ -257,23 +265,23 @@ public class ItemProvider extends ContentProvider {
             }
         }
 
-            // If price is present check that it is valid and not null
-            if (values.containsKey(ItemEntry.COLUMN_ITEM_PRICE)) {
-                Integer price = values.getAsInteger(ItemEntry.COLUMN_ITEM_PRICE);
-                if (price == null) {
-                    throw new IllegalArgumentException("Item requires a price");
-                }
+        // If price is present check that it is valid and not null
+        if (values.containsKey(ItemEntry.COLUMN_ITEM_PRICE)) {
+            Integer price = values.getAsInteger(ItemEntry.COLUMN_ITEM_PRICE);
+            if (price == null) {
+                throw new IllegalArgumentException("Item requires a price");
             }
+        }
 
-            // If quantity is present check that it is valid and not null
-            if (values.containsKey(ItemEntry.COLUMN_ITEM_QUANTITY)) {
-                Integer quantity = values.getAsInteger(ItemEntry.COLUMN_ITEM_QUANTITY);
-                if (quantity == null) {
-                    throw new IllegalArgumentException("Item requires a price");
-                }
+        // If quantity is present check that it is valid and not null
+        if (values.containsKey(ItemEntry.COLUMN_ITEM_QUANTITY)) {
+            Integer quantity = values.getAsInteger(ItemEntry.COLUMN_ITEM_QUANTITY);
+            if (quantity == null) {
+                throw new IllegalArgumentException("Item requires a price");
             }
+        }
 
-            // Make sure a supplier name is provided
+        // Make sure a supplier name is provided
         if (values.containsKey(ItemEntry.COLUMN_ITEM_SUPPLIER_NAME)) {
             String supplierName = values.getAsString(ItemEntry.COLUMN_ITEM_NAME);
             if (supplierName == null) {

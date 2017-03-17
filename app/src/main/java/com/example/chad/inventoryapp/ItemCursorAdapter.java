@@ -1,8 +1,11 @@
 package com.example.chad.inventoryapp;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,14 +68,16 @@ public class ItemCursorAdapter extends CursorAdapter {
         Button sellButton = (Button) view.findViewById(R.id.sell_one);
 
         // Find the columns of item attributes that we're interested in
+        int idColumnIndex = cursor.getColumnIndex(ItemEntry._ID);
         int nameColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_NAME);
         int priceColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
 
         // Read the item attributes from the Cursor for the current item
+        final String id = cursor.getString(idColumnIndex);
         String itemName = cursor.getString(nameColumnIndex);
         String itemPrice = cursor.getString(priceColumnIndex);
-        String itemQuantity = cursor.getString(quantityColumnIndex);
+        final String itemQuantity = cursor.getString(quantityColumnIndex);
 
         // Update the TextViews with the attributes for the current item
         nameTextView.setText(itemName);
@@ -83,8 +88,10 @@ public class ItemCursorAdapter extends CursorAdapter {
         sellButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ContentResolver resolver = v.getContext().getContentResolver();
+                ContentValues values = new ContentValues();
                 // Parse quantity back to an Integer so we can do math on it.
-                int quantity = Integer.parseInt(quantityTextView.getText().toString());
+                int quantity = Integer.parseInt(itemQuantity);
                 // If the quantity is 0 display a toast stating there's no inventory and return
                 // Otherwise, decrement the quantity by 1
                 if (quantity == 0) {
@@ -95,8 +102,10 @@ public class ItemCursorAdapter extends CursorAdapter {
                 quantity--;
 
                 // Update the quantity of the item of the affected item in the database
-                ContentValues values = new ContentValues();
+                Integer itemId = Integer.parseInt(id);
                 values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity);
+                Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, itemId);
+                resolver.update(currentItemUri, values, null, null);
 
                 // Set the new quantity in the quantityTextView of the affected list item
                 quantityTextView.setText(Integer.toString(quantity));

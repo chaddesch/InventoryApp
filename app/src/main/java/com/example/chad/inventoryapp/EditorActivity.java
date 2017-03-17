@@ -45,50 +45,39 @@ public class EditorActivity extends AppCompatActivity implements
      * Identifier for the item data loader
      */
     private static final int EXISTING_ITEM_LOADER = 0;
-
-    /**
-     * Content URI for the existing item (null if it's a new item)
-     */
-    private Uri mCurrentItemUri;
-
-    /**
-     * EditText field to enter the item's name
-     */
-    private EditText mNameEditText;
-
-    /**
-     * EditText field to enter the item's price
-     */
-    private EditText mPriceEditText;
-
-    /**
-     * EditText field to enter the item's quantity
-     */
-    private EditText mQuantityEditText;
-
-    /**
-     * EditText field to enter the item's supplier name
-     */
-    private EditText mSupplierNameEditText;
-
-    /**
-     * EditText field to enter the item's supplier email address
-     */
-    private EditText mSupplierEmailEditText;
-
-    /**
-     * ImageView field to enter the item's image
-     */
-    private ImageView mItemImageView;
-
     private static final int SELECT_IMAGE = 0;
-
     /**
      * Log tag for EditorActivity
      */
     private static final String LOG_TAG = EditorActivity.class.getSimpleName();
-
-
+    /**
+     * Content URI for the existing item (null if it's a new item)
+     */
+    private Uri mCurrentItemUri;
+    /**
+     * EditText field to enter the item's name
+     */
+    private EditText mNameEditText;
+    /**
+     * EditText field to enter the item's price
+     */
+    private EditText mPriceEditText;
+    /**
+     * EditText field to enter the item's quantity
+     */
+    private EditText mQuantityEditText;
+    /**
+     * EditText field to enter the item's supplier name
+     */
+    private EditText mSupplierNameEditText;
+    /**
+     * EditText field to enter the item's supplier email address
+     */
+    private EditText mSupplierEmailEditText;
+    /**
+     * ImageView field to enter the item's image
+     */
+    private ImageView mItemImageView;
     /**
      * Boolean flag that keeps track of whether the item has been edited (true) or not (false)
      */
