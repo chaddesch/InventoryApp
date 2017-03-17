@@ -98,4 +98,7 @@
     <!-- Toast text when there is no inventory available and the Sell button is pressed -->
     <string name="no_inventory">No more inventory available!</string>
 
+    <!-- String for sell button -->
+    <string name="sell">Sell</string>
+
 </resources>

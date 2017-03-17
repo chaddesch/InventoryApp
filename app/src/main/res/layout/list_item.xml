@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#2B3D4D"
+            android:textColor="@android:color/black"
             tools:text="Item" />
 
         <LinearLayout
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="#AEB6BD"
+                android:textColor="@color/subText"
                 tools:text="Price" />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_marginStart="16dp"
                 android:fontFamily="sans-serif"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="#AEB6BD"
+                android:textColor="@color/subText"
                 tools:text="Quantity" />
         </LinearLayout>
 
@@ -58,7 +58,6 @@
         android:layout_marginRight="64dp"
         android:background="@color/colorPrimary"
         android:focusable="false"
-        android:onClick="sellOne"
-        android:text="Sell"
+        android:text="@string/sell"
         android:textColor="@android:color/white" />
 </RelativeLayout>

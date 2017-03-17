@@ -14,4 +14,7 @@
 
     <!-- Primary dark color for the editor -->
     <color name="editorColorPrimaryDark">#394450</color>
+
+    <!-- Color value for subtext -->
+    <color name="subText">#AEB6BD</color>
 </resources>
